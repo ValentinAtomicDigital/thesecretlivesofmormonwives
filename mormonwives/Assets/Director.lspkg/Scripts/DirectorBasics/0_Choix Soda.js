@@ -3,7 +3,7 @@
 //@input SceneObject[] Hints
 //input Component.AudioComponent WellDone
 //input Component.Image ImitateElio
-//input Asset.Texture Flashvideo
+//@input Asset.Texture[] VideoSodas
 //input Component.VFXComponent Parti
 
 //@ui {"widget":"separator"}
@@ -23,16 +23,21 @@ const SodaPressCaller = script.subScene.CreateCaller("SodaPress");
 //________Listener________//
 const SodaPressListener = script.subScene.CreateListener("SodaPress", SodaPress);
 //________DelayEvent________//
-//var CaptureScreenEvent = script.subScene.CreateEvent("DelayedCallbackEvent", getFullScreenText);
+var delayedEndVideoBeerEvent = script.subScene.CreateEvent("DelayedCallbackEvent", delayedEndVideoBeer);
 //global.currentCyclePhoto=0;
 
 //exemple : script.WellDone.play(1);
 //var randomInt = Math.floor(Math.random() * 4);//0-3
 var idToGoTo=0
+let controlBeerVideo = script.VideoSodas[2].control
+
 //_________________________Director functions_____________________//
 function Start() {}
 function OnLateStart() {
     FadeHintTapanim.Start()
+    
+
+
     //CloseButtonImage=script.ButtonClose.getComponent("Component.Image");
     //CloseButtonInteraction=script.ButtonClose.getComponent("Component.InteractionComponent");
 
@@ -44,7 +49,15 @@ function Stop() {
 }
 //___________________________Functions__________________________//
 
+/*
 
+
+global.ResumeVideo(controlTwix)
+
+
+
+
+*/
 //script.Parti.asset.properties["KillParti"] = 1
 
 //________Button________//
@@ -62,7 +75,11 @@ script.Buttons[1].getComponent("Component.InteractionComponent").onTap.add(funct
 
 script.Buttons[2].getComponent("Component.InteractionComponent").onTap.add(function() {
 //script.Buttons[2].getComponent("Component.InteractionComponent").enabled = false;
-      SodaPressCaller.Call(2)
+    print(controlBeerVideo.totalDuration)
+
+    SodaPressCaller.Call(2)
+    global.PlayVideo(controlBeerVideo, 1)
+    delayedEndVideoBeerEvent.event.reset(2)
 
 });
 //________FunctionsPerso________//
@@ -72,6 +89,20 @@ function SodaPress(id)
     FadeHintTapanim.GoTo(0)
     ScaleButtonAnim.Reset()
     ScaleButtonAnim.Start(1)
+
+}
+
+function delayedEndVideoBeer()
+{
+            //global.PauseVideo(controlBeerVideo)
+global.PauseVideo(controlBeerVideo)
+    if(controlBeerVideo.status != VideoStatus.Preparing)
+    {
+        
+        print("AHHHH")
+        //onceLoading = true
+    }
+    
 
 }
 /*
@@ -209,7 +240,7 @@ ScaleButtonAnim.Easing=QuadraticInOut;
 
 function ScaleButton(ratio)
 {    
-    print(ratio)
+    //print(ratio)
     script.Buttons[idToGoTo].getComponent("Component.Image").mainPass.contrast=(-(ratio)*0.4)+1;
     script.Buttons[idToGoTo].getComponent("Component.Image").getTransform().setLocalScale(
     new vec3(1, 1, 1).uniformScale((-(ratio)*0.2)+1));

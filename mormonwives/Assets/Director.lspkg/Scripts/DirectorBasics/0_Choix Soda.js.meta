@@ -29,6 +29,7 @@
     Buttons: false
     Hints: false
     SequenceRevealSeb: false
+    VideoSodas: false
     parent: false
   ScriptTypesHidden:
     {}
@@ -43,6 +44,8 @@
       Buttons: !<reference.SceneObject[]>
         []
       Hints: !<reference.SceneObject[]>
+        []
+      VideoSodas: !<reference.Texture[]>
         []
       SequenceRevealSeb: !<reference.Texture> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
