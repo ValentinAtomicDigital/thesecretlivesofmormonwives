@@ -41,16 +41,6 @@ function Stop() {}
 
 //script.Parti.asset.properties["KillParti"] = 1
 /*
-let controlTwix = script.twixMat.mainPass.baseTex.control
-global.PlayVideo(controlTwix, 1)
-global.ResumeVideo(controlTwix)
-delayedEndVideo.event.reset(controlTwix.totalDuration-0.5)
-if(controlTwix.status != VideoStatus.Preparing){
-    global.PauseVideo(controlTwix)
-    onceLoading = true
-}
-*/
-/*
 //________Button________//
 
 script._restartButton.getComponent("Component.InteractionComponent").onTap.add(function() {

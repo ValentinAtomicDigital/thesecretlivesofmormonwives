@@ -1,4 +1,5 @@
 //@input SceneObject parent
+//@input SceneObject[] Flavor
 //input Component.AudioComponent WellDone
 //input Component.Image ImitateElio
 //input Asset.Texture Flashvideo
@@ -16,10 +17,10 @@ script.subScene.OnStop = Stop;
 script.subScene.SetUpdate(Update);
 //__________________________Variables_____________________________//
 //________Caller________//
-//const outroCaller = script.subScene.CreateCaller("outroDone");
+const FlavorChooseCaller = script.subScene.CreateCaller("FlavorChoose");
 //exemple : outroCaller.Call()
 //________Listener________//
-//const outroListener = script.subScene.CreateListener("outroStart", OnOutroStart);
+//const FlavorChooseListener = script.subScene.CreateListener("FlavorChoose", FlavorChoose);
 //________DelayEvent________//
 //var CaptureScreenEvent = script.subScene.CreateEvent("DelayedCallbackEvent", getFullScreenText);
 //global.currentCyclePhoto=0;
@@ -40,25 +41,38 @@ function Stop() {}
 
 
 //script.Parti.asset.properties["KillParti"] = 1
-/*
-let controlTwix = script.twixMat.mainPass.baseTex.control
-global.PlayVideo(controlTwix, 1)
-global.ResumeVideo(controlTwix)
-delayedEndVideo.event.reset(controlTwix.totalDuration-0.5)
-if(controlTwix.status != VideoStatus.Preparing){
-    global.PauseVideo(controlTwix)
-    onceLoading = true
-}
-*/
-/*
+
 //________Button________//
 
-script._restartButton.getComponent("Component.InteractionComponent").onTap.add(function() {
-script._restartButton.getComponent("Component.InteractionComponent").enabled = false;
-   
-});*/
-//________FunctionsPerso________//
+script.Flavor[0].getComponent("Component.InteractionComponent").onTap.add(function() {
+//script._restartButton.getComponent("Component.InteractionComponent").enabled = false;
+   FlavorChooseCaller.Call(0)
+});
 
+script.Flavor[1].getComponent("Component.InteractionComponent").onTap.add(function() {
+//script._restartButton.getComponent("Component.InteractionComponent").enabled = false;
+   FlavorChooseCaller.Call(1)
+});
+
+script.Flavor[2].getComponent("Component.InteractionComponent").onTap.add(function() {
+//script._restartButton.getComponent("Component.InteractionComponent").enabled = false;
+   FlavorChooseCaller.Call(2)
+});
+
+script.Flavor[3].getComponent("Component.InteractionComponent").onTap.add(function() {
+//script._restartButton.getComponent("Component.InteractionComponent").enabled = false;
+   FlavorChooseCaller.Call(3)
+});
+
+script.Flavor[4].getComponent("Component.InteractionComponent").onTap.add(function() {
+//script._restartButton.getComponent("Component.InteractionComponent").enabled = false;
+   FlavorChooseCaller.Call(4)
+});
+//________FunctionsPerso________//
+function FlavorChoose(id)
+{
+    
+}
 /*
 function PlayVideoFlash()
 {

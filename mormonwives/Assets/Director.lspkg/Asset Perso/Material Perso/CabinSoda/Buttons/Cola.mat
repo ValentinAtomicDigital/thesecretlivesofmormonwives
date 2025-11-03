@@ -1,8 +1,8 @@
-- !<Material/9477aaae-9e36-4cc3-96ba-70d1bc811215>
+- !<Material/8560bd29-61e6-42ea-8821-1bf838fcda26>
   PackagePath: ""
   PassesInfo:
-    - !<own> b2dd991e-f2d8-4670-a5ae-4bf34ed88b6a
-- !<PassInfo/b2dd991e-f2d8-4670-a5ae-4bf34ed88b6a>
+    - !<own> 47533fd4-090a-4e04-9808-651c71cf9227
+- !<PassInfo/47533fd4-090a-4e04-9808-651c71cf9227>
   CachedProperties:
     - Port_Default_N369:
         typeIdx: 5
@@ -28,6 +28,12 @@
     - Port_GSplatScale_N004:
         typeIdx: 4
         value: {x: 0.000000, y: 0.000000, z: 0.000000}
+    - Port_Import_N091:
+        typeIdx: 5
+        value: {x: 1.000000, y: 0.000000, z: 0.000000, w: 0.000000}
+    - Port_Import_N095:
+        typeIdx: 1
+        value: 1.000000
     - Port_LODValue_N002:
         typeIdx: 1
         value: 0.000000
@@ -64,6 +70,9 @@
     - Port_WorldTangent_N004:
         typeIdx: 4
         value: {x: 0.000000, y: 0.000000, z: 1.000000}
+    - Tweak_N33:
+        typeIdx: 1
+        value: 1.000000
   DepthWrite: false
   DepthTest: false
   DepthFunction: LessEqual
@@ -75,16 +84,28 @@
   FrustumCullPad: 0.000000
   InstanceCount: 1
   Defines:
+    - ENABLE_BASE_TEX
     - NODE_13_DROPLIST_ITEM 0
     - NODE_27_DROPLIST_ITEM 0
     - NODE_49_DROPLIST_ITEM 0
     - NODE_69_DROPLIST_ITEM 0
-    - ENABLE_BASE_TEX
   BlendMode: PremultipliedAlphaAuto
   Properties:
     Port_Default_N204:
       typeIdx: 1
       value: 1.000000
+    Port_Import_N092:
+      typeIdx: 1
+      value: 1.000000
+    Port_Import_N100:
+      typeIdx: 1
+      value: 1.000000
+    Port_Input0_N102:
+      typeIdx: 5
+      value: {x: 0.500000, y: 0.500000, z: 0.500000, w: 0.000000}
+    Port_Input1_N094:
+      typeIdx: 5
+      value: {x: 0.212500, y: 0.715400, z: 0.072100, w: 0.000000}
     PreviewEnabled:
       typeIdx: 0
       value: 0
@@ -94,7 +115,7 @@
     baseTex:
       typeIdx: 9
       value:
-        id: 9411a503-6590-4180-ba20-49a5dc7e04b1
+        id: dfeef9a3-4bb4-45ed-aab3-789ef9fcd576
         sampler:
           filteringMode: Trilinear
           wrapModeU: ClampToEdge
@@ -103,4 +124,7 @@
           borderColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
           mipmaps: false
         type: Texture2D
-  Pass: !<reference> d719f6a9-fff2-402c-b043-79a5a46f41d5
+    contrast:
+      typeIdx: 1
+      value: 1.000000
+  Pass: !<reference> 1ece802e-6681-4b95-b669-dbc63854cadf

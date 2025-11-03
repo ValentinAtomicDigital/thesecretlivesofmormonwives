@@ -1,4 +1,6 @@
 //@input SceneObject parent
+//@input SceneObject Cabin
+//@input SceneObject[] Empty
 //input Component.AudioComponent WellDone
 //input Component.Image ImitateElio
 //input Asset.Texture Flashvideo
@@ -26,30 +28,24 @@ script.subScene.SetUpdate(Update);
 
 //exemple : script.WellDone.play(1);
 //var randomInt = Math.floor(Math.random() * 4);//0-3
-
+var idToGoTo=0 //0=Down 1=Up
 //_________________________Director functions_____________________//
 function Start() {}
 function OnLateStart() {
+    MouvCabinanim.GoTo(0)
     //CloseButtonImage=script.ButtonClose.getComponent("Component.Image");
     //CloseButtonInteraction=script.ButtonClose.getComponent("Component.InteractionComponent");
 
 }
 function Update() {}
-function Stop() {}
+function Stop() {
+
+    MouvCabinanim.JumpTo(1)
+}
 //___________________________Functions__________________________//
 
 
 //script.Parti.asset.properties["KillParti"] = 1
-/*
-let controlTwix = script.twixMat.mainPass.baseTex.control
-global.PlayVideo(controlTwix, 1)
-global.ResumeVideo(controlTwix)
-delayedEndVideo.event.reset(controlTwix.totalDuration-0.5)
-if(controlTwix.status != VideoStatus.Preparing){
-    global.PauseVideo(controlTwix)
-    onceLoading = true
-}
-*/
 /*
 //________Button________//
 
@@ -177,8 +173,21 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }*/
 //___________________________Animations_________________________//
-/*
-fadeBag.AddTimeCodeEvent(0.4, function(){  ///HERE/// })
+
+const MouvCabinanim = new Animation(script.getSceneObject(), 1, MouvCabin);
+MouvCabinanim.Easing=QuadraticInOut;
+function MouvCabin(ratio)
+{
+    var currentPos = script.Cabin.getComponent("Component.ScreenTransform").anchors.getCenter();
+    var posUp = script.Empty[1].getComponent("Component.ScreenTransform").anchors.getCenter();
+    var posDown = script.Empty[0].getComponent("Component.ScreenTransform").anchors.getCenter();
+
+    var result = vec2.lerp(posDown, posUp, ratio);
+    script.Cabin.getComponent("Component.ScreenTransform").anchors.setCenter(result);
+    //script.Bottle.getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
+}
+
+//fadeBag.AddTimeCodeEvent(0.4, function(){  ///HERE/// })
 
 const FadeBackgroundWithoutSeganim = new Animation(script.getSceneObject(), script.durationFade, FadeBackgroundWithoutSeg);
 FadeBackgroundWithoutSeganim.Easing=QuadraticInOut;
@@ -192,14 +201,5 @@ function FadeBackgroundWithoutSeg(ratio)
 }
 
 
- const ScaleButtonAnim = new Animation(script.getSceneObject(), script.durationFadeButton, ScaleButton,RepeatMode.PingPong);
-ScaleButtonAnim.Easing=ElasticIn;
+ 
 
-function ScaleButton(ratio)
-{    
-
-    //script.HeadDogButton[currentIdDog].getComponent("Component.Image").Scale=new vec2(1-ratio,1-ratio);
-    script.HeadDogButton[currentIdDog].getComponent("Component.Image").getTransform().setLocalScale(new vec3(1, 1, 1).uniformScale(((1-ratio)*0.15)+0.85));
-
-}   
-*/
