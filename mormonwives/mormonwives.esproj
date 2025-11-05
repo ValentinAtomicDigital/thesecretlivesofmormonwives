@@ -10,9 +10,9 @@ updateCheckpoint: 75
 sceneId: 0a1ccb1a-fe88-4fbb-9883-e3af3c75fd99
 viewConfig:
   simulation:
-    device: iPhone 8
-    cameraFov: 41.214199
-    fullFrameAspect: 0.562200
+    device: iPhone 13 Pro
+    cameraFov: 45.407001
+    fullFrameAspect: 0.562500
     resolutionScale: 1.000000
     viewport: Maximized
     output: Live
@@ -27,7 +27,7 @@ metaInfo:
     []
   tags:
     []
-  lensName: Untitled
+  lensName: MormonWivesOwnSoda
   lensDescriptors:
     []
   lensApplicability:
@@ -37,7 +37,7 @@ metaInfo:
     - Mobile
     - Web
   platformBundlesEnabled: false
-  iconHash: ""
+  iconHash: daf2732f1582fffe43cd1676792ea90a
   videoPreviewHash: ""
   fromTemplateName: Default
   fromTemplateUrl: Lens Studio 5.14.0.25091606

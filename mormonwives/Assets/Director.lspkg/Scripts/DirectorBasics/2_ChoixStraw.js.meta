@@ -26,7 +26,11 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    Hint: false
     SequenceRevealSeb: false
+    Sound: false
+    Straw: false
+    emptyStraw: false
     parent: false
   ScriptTypesHidden:
     {}
@@ -38,6 +42,12 @@
     []
   DefaultScriptInputs:
     - parent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Hint: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      emptyStraw: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Straw: !<reference.SceneObject[]>
+        []
+      Sound: !<reference.AudioComponent[]>
+        []
       SequenceRevealSeb: !<reference.Texture> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -

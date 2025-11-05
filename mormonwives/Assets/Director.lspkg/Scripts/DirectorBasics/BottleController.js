@@ -1,7 +1,8 @@
 //@input SceneObject parent
 //@input SceneObject Bottle
+//@input SceneObject[] Tuto
 //@input SceneObject[] EmptyBottle
-//input Component.AudioComponent WellDone
+//@input Component.AudioComponent Sound
 //input Component.Image ImitateElio
 //input Asset.Texture Flashvideo
 //input Component.VFXComponent Parti
@@ -18,11 +19,15 @@ script.subScene.OnStop = Stop;
 script.subScene.SetUpdate(Update);
 //__________________________Variables_____________________________//
 //________Caller________//
-//const outroCaller = script.subScene.CreateCaller("outroDone");
+const TapTutoCaller = script.subScene.CreateCaller("TapTuto");
 //exemple : outroCaller.Call()
 //________Listener________//
-//const outroListener = script.subScene.CreateListener("outroStart", OnOutroStart);
+//const TapTutoListener = script.subScene.CreateListener("TapTuto", OnOutroStart);
+
 const SodaPressListener = script.subScene.CreateListener("SodaPress", MouvSoda);
+const GoUpCabineListener = script.subScene.CreateListener("GoUpCabine", GoCenter);
+const RetryListener = script.subScene.CreateListener("Retry", Retry);
+
 
 //________DelayEvent________//
 //var CaptureScreenEvent = script.subScene.CreateEvent("DelayedCallbackEvent", getFullScreenText);
@@ -31,34 +36,64 @@ const SodaPressListener = script.subScene.CreateListener("SodaPress", MouvSoda);
 //exemple : script.WellDone.play(1);
 //var randomInt = Math.floor(Math.random() * 4);//0-3
 var idToGoTo=0
-
+var posbottle=new vec2(0,-1.25)
 //_________________________Director functions_____________________//
 function Start() {}
 function OnLateStart() {
+    FadeTutoanim.Start()
+    ScaleButtonAnim.Start(1)
     //CloseButtonImage=script.ButtonClose.getComponent("Component.Image");
     //CloseButtonInteraction=script.ButtonClose.getComponent("Component.InteractionComponent");
 
 }
-function Update() {}
+function Update() {
+    
+}
 function Stop() {
     MouvBottleanim.Reset()
+    FadeTutoanim.Reset()
+    script.Tuto[0].getComponent("Component.InteractionComponent").enabled = true;
+
+    script.Bottle.getComponent("Component.ScreenTransform").anchors.setCenter(posbottle);
+
+
 }
 //___________________________Functions__________________________//
 
 
 //script.Parti.asset.properties["KillParti"] = 1
-/*
+
 //________Button________//
 
-script._restartButton.getComponent("Component.InteractionComponent").onTap.add(function() {
-script._restartButton.getComponent("Component.InteractionComponent").enabled = false;
+script.Tuto[0].getComponent("Component.InteractionComponent").onTap.add(function() {
+script.Tuto[0].getComponent("Component.InteractionComponent").enabled = false;
+print("Tuto")
+TapTutoCaller.Call()
+GoCenter()
+script.Sound.play(1)
+FadeTutoanim.GoTo(0)
+
    
-});*/
+});
 //________FunctionsPerso________//
+function Retry()
+{
+    //print("RETRYYY")
+    
+    script.Bottle.getComponent("Component.ScreenTransform").anchors.setCenter(posbottle);
+
+    script.Tuto[0].getComponent("Component.InteractionComponent").enabled = true;
+    OnLateStart()
+}
 function MouvSoda(id)
 {
     idToGoTo=id
     print("IdUpdate")
+    MouvBottleanim.Start()
+}
+function GoCenter()
+{
+    idToGoTo=1
     MouvBottleanim.Start()
 }
 /*
@@ -191,6 +226,17 @@ function FadeBackgroundWithoutSeg(ratio)
 
 }
 
+const FadeTutoanim = new Animation(script.getSceneObject(), 1, FadeTuto);
+FadeTutoanim.Easing=QuadraticInOut;
+function FadeTuto(ratio)
+{
+    //script.Tuto[0].getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
+    script.Tuto[1].getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
+    script.Tuto[3].getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
+    script.Tuto[2].getComponent("Component.Text").textFill.color=new vec4(1, 1, 1, ratio);
+
+}
+
 const MouvBottleanim = new Animation(script.getSceneObject(), 1, MouvBottle);
 MouvBottleanim.Easing=QuadraticInOut;
 function MouvBottle(ratio)
@@ -203,15 +249,15 @@ function MouvBottle(ratio)
     //script.Bottle.getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
 }
 
+ 
 
- const ScaleButtonAnim = new Animation(script.getSceneObject(), script.durationFadeButton, ScaleButton,RepeatMode.PingPong);
-ScaleButtonAnim.Easing=ElasticIn;
+const ScaleButtonAnim = new Animation(script.getSceneObject(), 0.5, ScaleButton,RepeatMode.PingPong);
+ScaleButtonAnim.Easing=QuadraticInOut;
 
 function ScaleButton(ratio)
 {    
-
-    //script.HeadDogButton[currentIdDog].getComponent("Component.Image").Scale=new vec2(1-ratio,1-ratio);
-    script.HeadDogButton[currentIdDog].getComponent("Component.Image").getTransform().setLocalScale(new vec3(1, 1, 1).uniformScale(((1-ratio)*0.15)+0.85));
-
-}   
+    //print(ratio)
+    script.Tuto[3].getComponent("Component.Image").getTransform().setLocalScale(
+    new vec3(1, 1, 1).uniformScale(((ratio)*0.6)+1));
+}  
 

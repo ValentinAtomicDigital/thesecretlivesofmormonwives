@@ -1,0 +1,57 @@
+- !<AssetImportMetadata/14700066-0509-453a-a318-d5fc3f1baa7b>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> c976ff50-eb88-4438-99cc-062dec30c95b
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> c976ff50-eb88-4438-99cc-062dec30c95b
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    JavaScriptAsset: !<own> 6cda2251-fff2-4ea0-b055-f1088f5f6e24
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<ScriptAssetData/6cda2251-fff2-4ea0-b055-f1088f5f6e24>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 5e0a3814-34b0-425e-a0e0-e5214c7960b4
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    ButtonRetry: false
+    Hint: false
+    SequenceRevealSeb: false
+    Sound: false
+    Videos: false
+    VideosToStop: false
+    parent: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - parent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Hint: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      ButtonRetry: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Sound: !<reference.AudioComponent[]>
+        []
+      Videos: !<reference.Material[]>
+        []
+      VideosToStop: !<reference.Texture[]>
+        []
+      SequenceRevealSeb: !<reference.Texture> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}

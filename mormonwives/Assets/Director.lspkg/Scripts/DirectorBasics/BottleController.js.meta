@@ -29,6 +29,8 @@
     Bottle: false
     EmptyBottle: false
     SequenceRevealSeb: false
+    Sound: false
+    Tuto: false
     parent: false
   ScriptTypesHidden:
     {}
@@ -41,8 +43,11 @@
   DefaultScriptInputs:
     - parent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       Bottle: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Tuto: !<reference.SceneObject[]>
+        []
       EmptyBottle: !<reference.SceneObject[]>
         []
+      Sound: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
       SequenceRevealSeb: !<reference.Texture> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -

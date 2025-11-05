@@ -1,9 +1,10 @@
 //@input SceneObject parent
 //@input SceneObject[] Buttons
 //@input SceneObject[] Hints
-//input Component.AudioComponent WellDone
+//@input Component.AudioComponent[] Sound
 //input Component.Image ImitateElio
 //@input Asset.Texture[] VideoSodas
+//@input Asset.Texture[] VideoLiq
 //input Component.VFXComponent Parti
 
 //@ui {"widget":"separator"}
@@ -22,19 +23,40 @@ const SodaPressCaller = script.subScene.CreateCaller("SodaPress");
 //exemple : outroCaller.Call()
 //________Listener________//
 const SodaPressListener = script.subScene.CreateListener("SodaPress", SodaPress);
+const TapTutoListener = script.subScene.CreateListener("TapTuto", TapTuto);
+const RetryListener = script.subScene.CreateListener("Retry", Retry);
+
+
 //________DelayEvent________//
+var delayedEndVideoColaEvent = script.subScene.CreateEvent("DelayedCallbackEvent", delayedEndVideoCola);
+var delayedEndVideoSwEvent = script.subScene.CreateEvent("DelayedCallbackEvent", delayedEndVideoSw);
 var delayedEndVideoBeerEvent = script.subScene.CreateEvent("DelayedCallbackEvent", delayedEndVideoBeer);
+
+var delayedStartVideoColaEvent = script.subScene.CreateEvent("DelayedCallbackEvent", delayedStartVideoCola);
+var delayedStartVideoSwEvent = script.subScene.CreateEvent("DelayedCallbackEvent", delayedStartVideoSw);
+var delayedStartVideoBeerEvent = script.subScene.CreateEvent("DelayedCallbackEvent", delayedStartVideoBeer);
+
 //global.currentCyclePhoto=0;
 
 //exemple : script.WellDone.play(1);
 //var randomInt = Math.floor(Math.random() * 4);//0-3
 var idToGoTo=0
+let controlColaVideo = script.VideoSodas[0].control
+let controlSwVideo = script.VideoSodas[1].control
 let controlBeerVideo = script.VideoSodas[2].control
+
+let controlLiqColaVideo = script.VideoLiq[0].control
+let controlLiqSwVideo = script.VideoLiq[1].control
+let controlLiqBeerVideo = script.VideoLiq[2].control
+
+global.GobChoose=0;
 
 //_________________________Director functions_____________________//
 function Start() {}
 function OnLateStart() {
-    FadeHintTapanim.Start()
+    script.Sound[0].play(-1)
+    script.Sound[1].play(1)
+    //FadeHintTapanim.Start()
     
 
 
@@ -44,8 +66,10 @@ function OnLateStart() {
 }
 function Update() {}
 function Stop() {
-
     FadeHintTapanim.Reset()
+    script.Buttons[0].getComponent("Component.InteractionComponent").enabled = true;
+    script.Buttons[1].getComponent("Component.InteractionComponent").enabled = true;
+    script.Buttons[2].getComponent("Component.InteractionComponent").enabled = true;
 }
 //___________________________Functions__________________________//
 
@@ -61,49 +85,122 @@ global.ResumeVideo(controlTwix)
 //script.Parti.asset.properties["KillParti"] = 1
 
 //________Button________//
-
+var delaystopSoda=2.6
 script.Buttons[0].getComponent("Component.InteractionComponent").onTap.add(function() {
-//script.Buttons[0].getComponent("Component.InteractionComponent").enabled = false;
-   SodaPressCaller.Call(0)
+    SodaPressCaller.Call(0)
+    delayedStartVideoColaEvent.event.reset(0.6)
+    global.PlayVideo(controlLiqColaVideo, 1)
+    delayedEndVideoColaEvent.event.reset(delaystopSoda)
 });
 
 script.Buttons[1].getComponent("Component.InteractionComponent").onTap.add(function() {
-//script.Buttons[1].getComponent("Component.InteractionComponent").enabled = false;
-      SodaPressCaller.Call(1)
+    SodaPressCaller.Call(1)
+    delayedStartVideoSwEvent.event.reset(0.6)
+    global.PlayVideo(controlLiqSwVideo, 1)
 
+    delayedEndVideoSwEvent.event.reset(delaystopSoda)
 });
 
 script.Buttons[2].getComponent("Component.InteractionComponent").onTap.add(function() {
-//script.Buttons[2].getComponent("Component.InteractionComponent").enabled = false;
-    print(controlBeerVideo.totalDuration)
-
     SodaPressCaller.Call(2)
-    global.PlayVideo(controlBeerVideo, 1)
-    delayedEndVideoBeerEvent.event.reset(2)
+    delayedStartVideoBeerEvent.event.reset(0.6)
+    global.PlayVideo(controlLiqBeerVideo, 1)
+
+    delayedEndVideoBeerEvent.event.reset(delaystopSoda)
 
 });
 //________FunctionsPerso________//
+function Retry()
+{
+    script.Buttons[0].getComponent("Component.InteractionComponent").enabled = true;
+    script.Buttons[1].getComponent("Component.InteractionComponent").enabled = true;
+    script.Buttons[2].getComponent("Component.InteractionComponent").enabled = true;
+    switch (global.GobChoose){
+        case 0:
+        global.ResumeVideo(controlColaVideo)
+        break;
+        
+        case 1:
+        global.ResumeVideo(controlSwVideo)
+        break;
+        
+        case 2:
+        global.ResumeVideo(controlBeerVideo)
+        break;
+    }
+/*
+    global.ResumeVideo(controlColaVideo, 1)
+    global.ResumeVideo(controlSwVideo, 1)
+    global.ResumeVideo(controlBeerVideo, 1)
+
+    global.ResumeVideo(controlLiqColaVideo, 1)
+    global.ResumeVideo(controlLiqSwVideo, 1)
+    global.ResumeVideo(controlLiqBeerVideo, 1)*/
+
+}
+function TapTuto()
+{
+    FadeHintTapanim.Start()
+}
 function SodaPress(id)
 {
+    script.Sound[2].play(1)
+
+    global.GobChoose=id
+    DesactivationButtonSoda()   
     idToGoTo=id
     FadeHintTapanim.GoTo(0)
     ScaleButtonAnim.Reset()
     ScaleButtonAnim.Start(1)
+}
 
+function delayedStartVideoCola()
+{
+    global.PlayVideo(controlColaVideo, 1)
+}
+
+function delayedStartVideoSw()
+{
+    global.PlayVideo(controlSwVideo, 1)
+}
+
+function delayedStartVideoBeer()
+{
+    global.PlayVideo(controlBeerVideo, 1)
+}
+
+function delayedEndVideoCola()
+{
+    global.PauseVideo(controlColaVideo)
+    if(controlColaVideo.status != VideoStatus.Preparing)
+    {
+        print("AHHHH")
+    }
+}
+
+function delayedEndVideoSw()
+{
+    global.PauseVideo(controlSwVideo)
+    if(controlSwVideo.status != VideoStatus.Preparing)
+    {
+        print("AHHHH")
+    }
 }
 
 function delayedEndVideoBeer()
 {
-            //global.PauseVideo(controlBeerVideo)
-global.PauseVideo(controlBeerVideo)
+    global.PauseVideo(controlBeerVideo)
     if(controlBeerVideo.status != VideoStatus.Preparing)
     {
-        
         print("AHHHH")
-        //onceLoading = true
     }
-    
+}
 
+function DesactivationButtonSoda()
+{
+    script.Buttons[0].getComponent("Component.InteractionComponent").enabled = false;
+    script.Buttons[1].getComponent("Component.InteractionComponent").enabled = false;
+    script.Buttons[2].getComponent("Component.InteractionComponent").enabled = false;
 }
 /*
 function PlayVideoFlash()
@@ -232,6 +329,7 @@ FadeHintTapanim.Easing=QuadraticInOut;
 function FadeHintTap(ratio)
 {
     script.Hints[0].getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
+    script.Hints[1].getComponent("Component.Text").textFill.color=new vec4(1, 1, 1, ratio);
 }
 
 

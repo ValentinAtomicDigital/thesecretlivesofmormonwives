@@ -1,5 +1,8 @@
 //@input SceneObject parent
-//input Component.AudioComponent WellDone
+//@input SceneObject Hint
+//@input SceneObject emptyStraw
+//@input SceneObject[] Straw
+//@input Component.AudioComponent[] Sound
 //input Component.Image ImitateElio
 //input Asset.Texture Flashvideo
 //input Component.VFXComponent Parti
@@ -16,17 +19,25 @@ script.subScene.OnStop = Stop;
 script.subScene.SetUpdate(Update);
 //__________________________Variables_____________________________//
 //________Caller________//
-//const outroCaller = script.subScene.CreateCaller("outroDone");
+const ChooseStrawCaller = script.subScene.CreateCaller("ChooseStraw");
 //exemple : outroCaller.Call()
 //________Listener________//
-//const outroListener = script.subScene.CreateListener("outroStart", OnOutroStart);
+const RetryListener = script.subScene.CreateListener("Retry", Retry);
+
+const ChooseStrawListener = script.subScene.CreateListener("ChooseStraw", ChooseStraw);
+const FlavorChooseListener = script.subScene.CreateListener("FlavorChoose", FlavorChoose);
+const FadeOutStrawListener = script.subScene.CreateListener("FadeOutStraw", FadeOutStraw);
+
+
 //________DelayEvent________//
 //var CaptureScreenEvent = script.subScene.CreateEvent("DelayedCallbackEvent", getFullScreenText);
-//global.currentCyclePhoto=0;
+
 
 //exemple : script.WellDone.play(1);
 //var randomInt = Math.floor(Math.random() * 4);//0-3
-
+var idToGoTo=0
+var posstraw1=new vec2(-0.6,-0.4)
+var posstraw2=new vec2(0.6,-0.4)
 //_________________________Director functions_____________________//
 function Start() {}
 function OnLateStart() {
@@ -34,21 +45,81 @@ function OnLateStart() {
     //CloseButtonInteraction=script.ButtonClose.getComponent("Component.InteractionComponent");
 
 }
-function Update() {}
-function Stop() {}
+function Update() {
+    //print(    script.Straw[1].getComponent("Component.ScreenTransform").anchors.getCenter())
+
+}
+function Stop() {
+    idToGoTo=0
+    script.Straw[0].getComponent("Component.InteractionComponent").enabled = false;
+    script.Straw[1].getComponent("Component.InteractionComponent").enabled = false;
+
+    FadeStraw1anim.Reset()
+    FadeStraw2anim.Reset()
+    FadeHintTextanim.Reset()
+}
 //___________________________Functions__________________________//
 
 
 //script.Parti.asset.properties["KillParti"] = 1
-/*
+
 //________Button________//
 
-script._restartButton.getComponent("Component.InteractionComponent").onTap.add(function() {
-script._restartButton.getComponent("Component.InteractionComponent").enabled = false;
-   
-});*/
-//________FunctionsPerso________//
+script.Straw[0].getComponent("Component.InteractionComponent").onTap.add(function() {
+script.Straw[0].getComponent("Component.InteractionComponent").enabled = false;
+   print("tapstraw1")
+    FadeStraw2anim.GoTo(0)
 
+   ChooseStrawCaller.Call(0)
+});
+
+script.Straw[1].getComponent("Component.InteractionComponent").onTap.add(function() {
+script.Straw[1].getComponent("Component.InteractionComponent").enabled = false;
+    print("tapstraw2")
+    FadeStraw1anim.GoTo(0)
+    ChooseStrawCaller.Call(1)
+});
+//________FunctionsPerso________//
+function Retry()
+{
+    script.Straw[0].getComponent("Component.ScreenTransform").anchors.setCenter(posstraw1);
+    script.Straw[1].getComponent("Component.ScreenTransform").anchors.setCenter(posstraw2);
+
+}
+function ChooseStraw(id)
+{
+    idToGoTo=id
+    MouvStrawanim.Start()
+    FadeHintTextanim.GoTo(0)
+}
+
+function FlavorChoose()
+{
+    script.Sound[0].play(1)
+    FadeStraw1anim.Start()
+    FadeStraw2anim.Start()
+    FadeHintTextanim.Start()
+    script.Straw[0].getComponent("Component.InteractionComponent").enabled = true;
+    script.Straw[1].getComponent("Component.InteractionComponent").enabled = true;
+}
+
+const MouvStrawanim = new Animation(script.getSceneObject(), 1, MouvStraw);
+MouvStrawanim.Easing=QuadraticInOut;
+function MouvStraw(ratio)
+{
+    var currentPos = script.Straw[idToGoTo].getComponent("Component.ScreenTransform").anchors.getCenter();
+    var posGoTo = script.emptyStraw.getComponent("Component.ScreenTransform").anchors.getCenter();
+
+    var result = vec2.lerp(currentPos, posGoTo, ratio);
+    script.Straw[idToGoTo].getComponent("Component.ScreenTransform").anchors.setCenter(result);
+    //script.Bottle.getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
+}
+
+function FadeOutStraw()
+{
+    FadeStraw1anim.GoTo(0)
+    FadeStraw2anim.GoTo(0)
+}
 /*
 function PlayVideoFlash()
 {
@@ -167,18 +238,26 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }*/
 //___________________________Animations_________________________//
-/*
-fadeBag.AddTimeCodeEvent(0.4, function(){  ///HERE/// })
 
-const FadeBackgroundWithoutSeganim = new Animation(script.getSceneObject(), script.durationFade, FadeBackgroundWithoutSeg);
-FadeBackgroundWithoutSeganim.Easing=QuadraticInOut;
+//fadeBag.AddTimeCodeEvent(0.4, function(){  ///HERE/// })
 
-function FadeBackgroundWithoutSeg(ratio)
+const FadeStraw1anim = new Animation(script.getSceneObject(), 1, FadeStraw1);
+FadeStraw1anim.Easing=QuadraticInOut;
+function FadeStraw1(ratio)
 {
-    //print("Test2");
-    script.ImitateElio.getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
-    script.ImageOrtho[1].getComponent("Component.Text").textFill.color=new vec4(1, 1, 1, ratio);
-
+    script.Straw[0].getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
+}
+const FadeStraw2anim = new Animation(script.getSceneObject(), 1, FadeStraw2);
+FadeStraw2anim.Easing=QuadraticInOut;
+function FadeStraw2(ratio)
+{
+    script.Straw[1].getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
+}
+const FadeHintTextanim = new Animation(script.getSceneObject(), 1, FadeHintText);
+FadeHintTextanim.Easing=QuadraticInOut;
+function FadeHintText(ratio)
+{
+    script.Hint.getComponent("Component.Text").textFill.color=new vec4(1, 1, 1, ratio);
 }
 
 
@@ -192,4 +271,4 @@ function ScaleButton(ratio)
     script.HeadDogButton[currentIdDog].getComponent("Component.Image").getTransform().setLocalScale(new vec3(1, 1, 1).uniformScale(((1-ratio)*0.15)+0.85));
 
 }   
-*/
+

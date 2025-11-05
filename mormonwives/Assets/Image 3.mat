@@ -1,8 +1,8 @@
-- !<Material/9354a7c7-3fdf-4885-999f-f2b319c009a0>
+- !<Material/970ec06f-e2a7-4496-82f0-8b44b412689e>
   PackagePath: ""
   PassesInfo:
-    - !<own> 91093ee1-8b03-410d-864c-cf20187ca6f2
-- !<PassInfo/91093ee1-8b03-410d-864c-cf20187ca6f2>
+    - !<own> 17e5dc91-1af3-4564-ae19-480628c962d6
+- !<PassInfo/17e5dc91-1af3-4564-ae19-480628c962d6>
   CachedProperties:
     - Port_Default_N369:
         typeIdx: 5
@@ -33,7 +33,7 @@
       value: 0
     baseColor:
       typeIdx: 5
-      value: {x: 0.000000, y: 1.000000, z: 0.498039, w: 1.000000}
+      value: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
     baseTex:
       typeIdx: 9
       value:

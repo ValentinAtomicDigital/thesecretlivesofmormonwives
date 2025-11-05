@@ -18,12 +18,15 @@ script.subScene.OnStop = Stop;
 script.subScene.SetUpdate(Update);
 //__________________________Variables_____________________________//
 //________Caller________//
-//const outroCaller = script.subScene.CreateCaller("outroDone");
+const GoUpCabineCaller = script.subScene.CreateCaller("GoUpCabine");
 //exemple : outroCaller.Call()
 //________Listener________//
-//const outroListener = script.subScene.CreateListener("outroStart", OnOutroStart);
+const SodaPressListener = script.subScene.CreateListener("SodaPress", SodaPress);
+const RetryListener = script.subScene.CreateListener("Retry", Retry);
+
+
 //________DelayEvent________//
-//var CaptureScreenEvent = script.subScene.CreateEvent("DelayedCallbackEvent", getFullScreenText);
+var GoUpCabinEvent = script.subScene.CreateEvent("DelayedCallbackEvent", GoUpCabin);
 //global.currentCyclePhoto=0;
 
 //exemple : script.WellDone.play(1);
@@ -54,7 +57,20 @@ script._restartButton.getComponent("Component.InteractionComponent").enabled = f
    
 });*/
 //________FunctionsPerso________//
+function Retry()
+{
+    OnLateStart()
+}
+function SodaPress()
+{
+    GoUpCabinEvent.event.reset(3)
+}
 
+function GoUpCabin()
+{
+    GoUpCabineCaller.Call()
+    MouvCabinanim.Start()
+}
 /*
 function PlayVideoFlash()
 {
