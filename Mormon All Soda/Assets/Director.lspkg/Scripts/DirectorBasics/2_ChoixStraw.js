@@ -31,6 +31,7 @@ const FadeOutStrawListener = script.subScene.CreateListener("FadeOutStraw", Fade
 
 //________DelayEvent________//
 var StrawUpToBottleEvent = script.subScene.CreateEvent("DelayedCallbackEvent", StrawUpToBottle);
+var StrawGoOutEvent = script.subScene.CreateEvent("DelayedCallbackEvent", StrawGoOut);
 var StrawInLeftRigthEvent = script.subScene.CreateEvent("DelayedCallbackEvent", StrawInLeftRigth);
 
 
@@ -100,12 +101,11 @@ function Retry()
 function ChooseStraw(id)
 {
     idToGoTo=id
-    //ScaleStrawAnim.Start(1)
+    ScaleStrawAnim.Start(1)
     StrawUpToBottleEvent.event.reset(1)
-    MouvStrawanim.Start()
+    //MouvStrawanim.Start()
     FadeHintTextanim.GoTo(0)
-    MouvStrawLeftanim.GoTo(0)
-    MouvStrawRigthanim.GoTo(0)
+    StrawGoOutEvent.event.reset(0.5)
 }
 
 function NextFlavoor()
@@ -128,6 +128,13 @@ function StrawInLeftRigth()
 {
     MouvStrawLeftanim.Start()
     MouvStrawRigthanim.Start()
+
+}
+function StrawGoOut()
+
+{
+    MouvStrawLeftanim.GoTo(0)
+    MouvStrawRigthanim.GoTo(0)
 
 }
 
