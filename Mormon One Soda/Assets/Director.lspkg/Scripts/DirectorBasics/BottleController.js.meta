@@ -1,0 +1,61 @@
+- !<AssetImportMetadata/18e6e083-2bb8-4268-8a0e-92f36008c4ee>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> 18d81ef7-35fc-48af-a023-acfd3b4fc551
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> 18d81ef7-35fc-48af-a023-acfd3b4fc551
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    JavaScriptAsset: !<own> 318f4588-1cf9-4910-9f39-aab10b3a762b
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<ScriptAssetData/318f4588-1cf9-4910-9f39-aab10b3a762b>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 5e0a3814-34b0-425e-a0e0-e5214c7960b4
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    Bottle: false
+    EmptyBottle: false
+    SequenceRevealSeb: false
+    Sound: false
+    Tuto: false
+    amplitude: false
+    basePosition: false
+    parent: false
+    speed: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - parent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Bottle: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      Tuto: !<reference.SceneObject[]>
+        []
+      EmptyBottle: !<reference.SceneObject[]>
+        []
+      Sound: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
+      SequenceRevealSeb: !<reference.Texture> 00000000-0000-0000-0000-000000000000
+      speed: !<float> 1.000000
+      amplitude: !<float> 10.000000
+      basePosition: !<Vec3[]>
+        - {x: 0.000000, y: 0.000000, z: 0.000000}
+  ScriptTypes:
+    -
+      {}
