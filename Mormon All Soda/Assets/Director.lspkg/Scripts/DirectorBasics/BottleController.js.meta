@@ -28,6 +28,7 @@
   ScriptInputsHidden:
     Bottle: false
     EmptyBottle: false
+    EmptyBottleFlavour: false
     SequenceRevealSeb: false
     Sound: false
     Tuto: false
@@ -49,6 +50,8 @@
       Tuto: !<reference.SceneObject[]>
         []
       EmptyBottle: !<reference.SceneObject[]>
+        []
+      EmptyBottleFlavour: !<reference.SceneObject[]>
         []
       Sound: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
       SequenceRevealSeb: !<reference.Texture> 00000000-0000-0000-0000-000000000000

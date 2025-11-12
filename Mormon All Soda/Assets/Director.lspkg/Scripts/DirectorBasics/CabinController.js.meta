@@ -29,6 +29,7 @@
     Cabin: false
     Empty: false
     SequenceRevealSeb: false
+    Soda: false
     parent: false
   ScriptTypesHidden:
     {}
@@ -42,6 +43,8 @@
     - parent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       Cabin: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       Empty: !<reference.SceneObject[]>
+        []
+      Soda: !<reference.SceneObject[]>
         []
       SequenceRevealSeb: !<reference.Texture> 00000000-0000-0000-0000-000000000000
   ScriptTypes:

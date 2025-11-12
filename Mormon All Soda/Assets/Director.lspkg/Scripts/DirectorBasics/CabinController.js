@@ -1,6 +1,7 @@
 //@input SceneObject parent
 //@input SceneObject Cabin
 //@input SceneObject[] Empty
+//@input SceneObject[] Soda
 //input Component.AudioComponent WellDone
 //input Component.Image ImitateElio
 //input Asset.Texture Flashvideo
@@ -22,11 +23,13 @@ const GoUpCabineCaller = script.subScene.CreateCaller("GoUpCabine");
 //exemple : outroCaller.Call()
 //________Listener________//
 const SodaPressListener = script.subScene.CreateListener("SodaPress", SodaPress);
+const FlavourNextPressedListener = script.subScene.CreateListener("NextFlavoor", FlavourNextPressed);
 const RetryListener = script.subScene.CreateListener("Retry", Retry);
 
 
 //________DelayEvent________//
 var GoUpCabinEvent = script.subScene.CreateEvent("DelayedCallbackEvent", GoUpCabin);
+var GoUpCabinFlavorEvent = script.subScene.CreateEvent("DelayedCallbackEvent", GoUpCabinFlavor);
 //global.currentCyclePhoto=0;
 
 //exemple : script.WellDone.play(1);
@@ -36,12 +39,15 @@ var idToGoTo=0 //0=Down 1=Up
 function Start() {}
 function OnLateStart() {
     MouvCabinanim.GoTo(0)
+    FadeSodaCabinanim.Start(1)
+
     //CloseButtonImage=script.ButtonClose.getComponent("Component.Image");
     //CloseButtonInteraction=script.ButtonClose.getComponent("Component.InteractionComponent");
 
 }
 function Update() {}
 function Stop() {
+    FadeSodaCabinanim.Reset()
 
     MouvCabinanim.JumpTo(1)
 }
@@ -64,12 +70,28 @@ function Retry()
 function SodaPress()
 {
     GoUpCabinEvent.event.reset(3)
+    //MouvCabinanim.Start()
+}
+
+function FlavourNextPressed()
+{
+    //GoUpCabinEvent.event.reset(3)
+    GoUpCabinFlavorEvent.event.reset(0.5)
+
+}
+
+function GoUpCabinFlavor()
+{
+    //GoUpCabineCaller.Call()
+    MouvCabinanim.Start()
 }
 
 function GoUpCabin()
 {
     GoUpCabineCaller.Call()
-    MouvCabinanim.Start()
+    FadeSodaCabinanim.GoTo(0)
+
+    //MouvCabinanim.Start()
 }
 /*
 function PlayVideoFlash()
@@ -213,7 +235,17 @@ function FadeBackgroundWithoutSeg(ratio)
     //print("Test2");
     script.ImitateElio.getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
     script.ImageOrtho[1].getComponent("Component.Text").textFill.color=new vec4(1, 1, 1, ratio);
+}
 
+const FadeSodaCabinanim = new Animation(script.getSceneObject(), 1, FadeSodaCabin);
+FadeSodaCabinanim.Easing=QuadraticInOut;
+
+function FadeSodaCabin(ratio)
+{
+    for(i=0;i<script.Soda.length;i++)
+    {
+        script.Soda[i].getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
+    }
 }
 
 

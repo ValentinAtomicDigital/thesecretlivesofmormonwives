@@ -76,9 +76,7 @@ script.Straw[0].getComponent("Component.InteractionComponent").onTap.add(functio
 script.Straw[0].getComponent("Component.InteractionComponent").enabled = false;
     print("tapstraw1")
     FadeStraw2anim.GoTo(0)
-
     ChooseStrawCaller.Call(0)
-
 });
 
 script.Straw[1].getComponent("Component.InteractionComponent").onTap.add(function() {

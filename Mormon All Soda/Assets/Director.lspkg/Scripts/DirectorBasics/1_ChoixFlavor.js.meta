@@ -26,10 +26,15 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    EmptyDown: false
+    EmptyUp: false
     Flavor: false
+    FlavorBuses: false
     FlavorButton: false
+    FlavorLiq: false
+    FlavorLiqtex: false
+    FlavorParent: false
     Flavortex: false
-    SequenceRevealSeb: false
     Sound: false
     parent: false
   ScriptTypesHidden:
@@ -42,15 +47,25 @@
     []
   DefaultScriptInputs:
     - parent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      EmptyUp: !<reference.SceneObject[]>
+        []
+      EmptyDown: !<reference.SceneObject[]>
+        []
       FlavorButton: !<reference.SceneObject[]>
+        []
+      FlavorParent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      FlavorBuses: !<reference.SceneObject[]>
         []
       Flavor: !<reference.SceneObject[]>
         []
+      FlavorLiq: !<reference.SceneObject[]>
+        []
       Flavortex: !<reference.Texture[]>
+        []
+      FlavorLiqtex: !<reference.Texture[]>
         []
       Sound: !<reference.AudioComponent[]>
         []
-      SequenceRevealSeb: !<reference.Texture> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}

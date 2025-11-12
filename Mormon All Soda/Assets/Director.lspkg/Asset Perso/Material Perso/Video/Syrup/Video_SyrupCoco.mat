@@ -115,7 +115,7 @@
     baseTex:
       typeIdx: 9
       value:
-        id: b96ae67b-3e8b-4ad7-b31b-bf3d659d019b
+        id: ade75f5a-caf6-4866-8e8d-93473057a4a5
         sampler:
           filteringMode: Trilinear
           wrapModeU: ClampToBorderColor
@@ -136,7 +136,7 @@
     opacityTex:
       typeIdx: 9
       value:
-        id: b96ae67b-3e8b-4ad7-b31b-bf3d659d019b
+        id: ade75f5a-caf6-4866-8e8d-93473057a4a5
         sampler:
           filteringMode: Trilinear
           wrapModeU: ClampToBorderColor

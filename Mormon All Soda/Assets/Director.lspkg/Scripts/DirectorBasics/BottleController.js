@@ -2,6 +2,7 @@
 //@input SceneObject Bottle
 //@input SceneObject[] Tuto
 //@input SceneObject[] EmptyBottle
+//@input SceneObject[] EmptyBottleFlavour
 //@input Component.AudioComponent Sound
 //input Component.Image ImitateElio
 //input Asset.Texture Flashvideo
@@ -25,17 +26,20 @@ const TapTutoCaller = script.subScene.CreateCaller("TapTuto");
 //const TapTutoListener = script.subScene.CreateListener("TapTuto", OnOutroStart);
 
 const SodaPressListener = script.subScene.CreateListener("SodaPress", MouvSoda);
+const BottleCenterListener = script.subScene.CreateListener("BottleCenter", GoCenter);
+const FlavourPressedListener = script.subScene.CreateListener("FlavorChoose", MouvSodaFlavour);
 const GoUpCabineListener = script.subScene.CreateListener("GoUpCabine", GoCenter);
 const RetryListener = script.subScene.CreateListener("Retry", Retry);
 
 
 //________DelayEvent________//
-//var CaptureScreenEvent = script.subScene.CreateEvent("DelayedCallbackEvent", getFullScreenText);
+var GoCenterBottleEvent = script.subScene.CreateEvent("DelayedCallbackEvent", GoCenterBottle);
 //global.currentCyclePhoto=0;
 
 //exemple : script.WellDone.play(1);
 //var randomInt = Math.floor(Math.random() * 4);//0-3
 var idToGoTo=0
+var idToGoToFlavour=0
 var posbottle=new vec2(0,-1.5)
 //_________________________Director functions_____________________//
 function Start() {}
@@ -90,6 +94,18 @@ function MouvSoda(id)
     idToGoTo=id
     print("IdUpdate")
     MouvBottleanim.Start()
+    //GoCenterBottleEvent.event.reset(2)
+}
+
+function MouvSodaFlavour(id)
+{
+    idToGoToFlavour=id
+    print("IdUpdate")
+    MouvBottleFlavouranim.Start()
+}
+function GoCenterBottle()
+{
+    GoCenter()
 }
 function GoCenter()
 {
@@ -256,13 +272,21 @@ function MouvBottle(ratio)
 {
     var currentPos = script.Bottle.getComponent("Component.ScreenTransform").anchors.getCenter();
     var posGoTo = script.EmptyBottle[idToGoTo].getComponent("Component.ScreenTransform").anchors.getCenter();
-
     var result = vec2.lerp(currentPos, posGoTo, ratio);
     script.Bottle.getComponent("Component.ScreenTransform").anchors.setCenter(result);
     //script.Bottle.getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
 }
 
- 
+const MouvBottleFlavouranim = new Animation(script.getSceneObject(), 1, MouvBottleFlavour);
+MouvBottleFlavouranim.Easing=QuadraticInOut;
+function MouvBottleFlavour(ratio)
+{
+    var currentPos = script.Bottle.getComponent("Component.ScreenTransform").anchors.getCenter();
+    var posGoTo = script.EmptyBottleFlavour[idToGoToFlavour].getComponent("Component.ScreenTransform").anchors.getCenter();
+    var result = vec2.lerp(currentPos, posGoTo, ratio);
+    script.Bottle.getComponent("Component.ScreenTransform").anchors.setCenter(result);
+    //script.Bottle.getComponent("Component.Image").mainPass.baseColor=new vec4(1, 1, 1, ratio);
+}
 
 const ScaleButtonAnim = new Animation(script.getSceneObject(), 0.5, ScaleButton,RepeatMode.PingPong);
 ScaleButtonAnim.Easing=QuadraticInOut;

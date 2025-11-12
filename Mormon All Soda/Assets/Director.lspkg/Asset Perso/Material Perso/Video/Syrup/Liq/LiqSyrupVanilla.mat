@@ -1,8 +1,8 @@
-- !<Material/f7109716-d7e1-40ae-8508-154425c5cc29>
+- !<Material/525c1c68-48f8-45be-90cc-abd84e70122d>
   PackagePath: ""
   PassesInfo:
-    - !<own> 52408d23-fce3-494d-815a-3a65b51605b6
-- !<PassInfo/52408d23-fce3-494d-815a-3a65b51605b6>
+    - !<own> f217027f-34c0-4b19-90f6-370247ae269f
+- !<PassInfo/f217027f-34c0-4b19-90f6-370247ae269f>
   CachedProperties:
     - Port_Default_N204:
         typeIdx: 1
@@ -97,13 +97,13 @@
   InstanceCount: 1
   Defines:
     - ENABLE_BASE_TEX
+    - ENABLE_OPACITY_TEX
     - NODE_13_DROPLIST_ITEM 0
     - NODE_27_DROPLIST_ITEM 2
     - NODE_49_DROPLIST_ITEM 0
+    - NODE_69_DROPLIST_ITEM 3
     - Tweak_N11
     - Tweak_N67
-    - NODE_69_DROPLIST_ITEM 3
-    - ENABLE_OPACITY_TEX
   BlendMode: PremultipliedAlphaAuto
   Properties:
     PreviewEnabled:
@@ -115,7 +115,7 @@
     baseTex:
       typeIdx: 9
       value:
-        id: 81e53f35-5193-4415-83ae-73e9628c3669
+        id: 5c51f48e-806f-4163-8233-d6b9fe13caf7
         sampler:
           filteringMode: Trilinear
           wrapModeU: ClampToBorderColor
@@ -136,7 +136,7 @@
     opacityTex:
       typeIdx: 9
       value:
-        id: 81e53f35-5193-4415-83ae-73e9628c3669
+        id: 5c51f48e-806f-4163-8233-d6b9fe13caf7
         sampler:
           filteringMode: Trilinear
           wrapModeU: ClampToBorderColor
